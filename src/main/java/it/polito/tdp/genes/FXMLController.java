@@ -38,11 +38,40 @@ public class FXMLController {
 
     @FXML
     void doContaArchi(ActionEvent event) {
-
+    	txtResult.clear();
+    	double soglia;
+    	try {
+            soglia = Double.parseDouble(txtSoglia.getText());
+    		if(soglia > this.model.getPmax() || soglia < this.model.getPmin()) {
+    			txtResult.appendText("VALORE SOGLIA NON CONFROME ALLE SPECIFICHE\n");
+    			return;
+    		}
+    		this.model.creaGrafo();
+    		txtResult.appendText("GRAFO CREATO!!\n");
+        	txtResult.appendText("#VERTICI: " +this.model.getnVertici()+"\n");
+        	txtResult.appendText("#VERTICI: " +this.model.getnArchi()+"\n");
+        	txtResult.appendText("#PESO MASSIMO RISCONTRATO: " +this.model.getPmax()+"\n");
+        	txtResult.appendText("#PESO MINIMO RISCONTRATO: " +this.model.getPmin()+"\n");
+    		txtResult.appendText("NEL GRAFO CREATO VI SONO "+this.model.nSU(soglia)+" ARCHI CON PESO MAGGIORE\n");
+    		txtResult.appendText("NEL GRAFO CREATO VI SONO "+this.model.nGIU(soglia)+" ARCHI CON PESO MINORE\n");
+    	}
+    	catch(NumberFormatException e) {
+    	this.model.creaGrafo();
+    	txtResult.appendText("GRAFO CREATO!!\n");
+    	txtResult.appendText("#VERTICI: " +this.model.getnVertici()+"\n");
+    	txtResult.appendText("#VERTICI: " +this.model.getnArchi()+"\n");
+    	txtResult.appendText("#PESO MASSIMO RISCONTRATO: " +this.model.getPmax()+"\n");
+    	txtResult.appendText("#PESO MINIMO RISCONTRATO: " +this.model.getPmin()+"\n");
+    	
+    	}
     }
 
     @FXML
     void doRicerca(ActionEvent event) {
+    	if(this.model.grafoCreato() == false) {
+    		txtResult.appendText("NECESSARIO CREARE PRIMA IL GRAFICO PER ACCEDERE A QUESTA FUNZIONE!!\n");
+    	}
+    	
 
     }
 
